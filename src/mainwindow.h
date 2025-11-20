@@ -29,8 +29,8 @@ private:
     QLabel* playerStatusDisplay = nullptr;
 
 private slots:
-    void fileDialogButtonPressed();
-    void loadButtonPressed();
-    void mediaStatusChanged(QMediaPlayer::MediaStatus status);
+    void presentPlayerSourceFileDialog();
+    void updatePlayerSource();
+    void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);
 };
 #endif // MAINWINDOW_H

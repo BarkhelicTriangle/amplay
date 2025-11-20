@@ -19,28 +19,28 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->filePathField = new QLineEdit;
     filePathField->setPlaceholderText("Enter a song's file path here");
-    lay->addWidget(filePathField, 0, 0);
+    lay->addWidget(filePathField, 0,0);
 
-    this->loadButton = new QPushButton();
+    this->loadButton = new QPushButton;
     loadButton->setText("Load song");
     connect(loadButton, SIGNAL(pressed()), this, SLOT(loadButtonPressed()));
-    lay->addWidget(loadButton, 0, 1);
+    lay->addWidget(loadButton, 0,1);
 
-    this->playButton = new QPushButton();
+    this->playButton = new QPushButton;
     playButton->setText("Play song");
     connect(playButton, SIGNAL(pressed()), player, SLOT(play()));
     lay->addWidget(playButton, 1,0);
 
-    this->pauseButton = new QPushButton();
+    this->pauseButton = new QPushButton;
     pauseButton->setText("Pause song");
     connect(pauseButton, SIGNAL(pressed()), player, SLOT(pause()));
     lay->addWidget(pauseButton, 1,1);
 
-    this->playerStatusDisplay = new QLabel();
+    this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
     lay->addWidget(playerStatusDisplay, 2,0, 1,2, Qt::AlignCenter);
 
-    this->setLayout(lay);
+    setLayout(lay);
 }
 
 MainWindow::~MainWindow() {}
@@ -54,5 +54,5 @@ void MainWindow::loadButtonPressed()
 void MainWindow::mediaStatusChanged(QMediaPlayer::MediaStatus status)
 {
     QString statusStr = QVariant::fromValue(status).toString();
-    this->playerStatusDisplay->setText("Media status: " + statusStr);
+    playerStatusDisplay->setText("Media status: " + statusStr);
 }

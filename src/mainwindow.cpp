@@ -3,48 +3,56 @@
 #include <QAudioOutput>
 #include <QDebug>
 #include <QUrl>
+#include <QString>
+#include <QVariant>
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
+    // initialize the player first thing
     this->player = new QMediaPlayer();
     player->setAudioOutput(new QAudioOutput);
     connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(mediaStatusChanged(QMediaPlayer::MediaStatus)));
 
+    // will definitely have to switch to QGridLayout sooner than later
     QVBoxLayout* lay = new QVBoxLayout(this);
 
-    this->filepath_field = new QLineEdit;
-    filepath_field->setPlaceholderText("Enter a song's file path here");
-    lay->addWidget(filepath_field);
+    this->filePathField = new QLineEdit;
+    filePathField->setPlaceholderText("Enter a song's file path here");
+    lay->addWidget(filePathField);
 
-    this->load_button = new QPushButton();
-    load_button->setText("Load song");
-    connect(load_button, SIGNAL(pressed()), this, SLOT(loadButtonPressed()));
-    lay->addWidget(load_button);
+    this->loadButton = new QPushButton();
+    loadButton->setText("Load song");
+    connect(loadButton, SIGNAL(pressed()), this, SLOT(loadButtonPressed()));
+    lay->addWidget(loadButton);
 
-    this->play_button = new QPushButton();
-    play_button->setText("Play song");
-    connect(play_button, SIGNAL(pressed()), player, SLOT(play()));
-    lay->addWidget(play_button);
+    this->playButton = new QPushButton();
+    playButton->setText("Play song");
+    connect(playButton, SIGNAL(pressed()), player, SLOT(play()));
+    lay->addWidget(playButton);
 
-    this->pause_button = new QPushButton();
-    pause_button->setText("Pause song");
-    connect(pause_button, SIGNAL(pressed()), player, SLOT(pause()));
-    lay->addWidget(pause_button);
+    this->pauseButton = new QPushButton();
+    pauseButton->setText("Pause song");
+    connect(pauseButton, SIGNAL(pressed()), player, SLOT(pause()));
+    lay->addWidget(pauseButton);
+
+    this->playerStatus = new QLabel();
+    lay->addWidget(playerStatus);
 
     this->setLayout(lay);
-
 }
 
 MainWindow::~MainWindow() {}
 
 void MainWindow::loadButtonPressed()
 {
-    this->player->setSource(QUrl(this->filepath_field->text()));
+    QUrl path = filePathField->text();
+    player->setSource(path);
 }
 
 void MainWindow::mediaStatusChanged(QMediaPlayer::MediaStatus status)
 {
-    qInfo() << status;
+    QString statusStr = QVariant::fromValue(status).toString();
+    this->playerStatus->setText(statusStr);
 }

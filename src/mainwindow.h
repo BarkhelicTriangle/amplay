@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QMediaPlayer>
+#include <QLabel>
 #include <QLineEdit>
 
 class MainWindow : public QWidget
@@ -15,13 +16,15 @@ public:
     ~MainWindow();
 
 private:
-    QLineEdit* filepath_field = nullptr;
-    QPushButton* load_button = nullptr;
-
-    QPushButton* play_button = nullptr;
-    QPushButton* pause_button = nullptr;
-
     QMediaPlayer* player = nullptr;
+
+    QLineEdit* filePathField = nullptr;
+    QPushButton* loadButton = nullptr;
+
+    QPushButton* playButton = nullptr;
+    QPushButton* pauseButton = nullptr;
+
+    QLabel* playerStatus = nullptr;
 
 private slots:
     void loadButtonPressed();

@@ -36,9 +36,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pauseButton, SIGNAL(pressed()), player, SLOT(pause()));
     lay->addWidget(pauseButton, 1,1);
 
-    this->playerStatus = new QLabel();
-    playerStatus->setText("Media status: N/A");
-    lay->addWidget(playerStatus, 2,0, 1,2, Qt::AlignCenter);
+    this->playerStatusDisplay = new QLabel();
+    playerStatusDisplay->setText("Media status: N/A");
+    lay->addWidget(playerStatusDisplay, 2,0, 1,2, Qt::AlignCenter);
 
     this->setLayout(lay);
 }
@@ -54,5 +54,5 @@ void MainWindow::loadButtonPressed()
 void MainWindow::mediaStatusChanged(QMediaPlayer::MediaStatus status)
 {
     QString statusStr = QVariant::fromValue(status).toString();
-    this->playerStatus->setText("Media status: " + statusStr);
+    this->playerStatusDisplay->setText("Media status: " + statusStr);
 }

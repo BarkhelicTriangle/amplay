@@ -24,7 +24,7 @@ private:
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
 
-    QLabel* playerStatus = nullptr;
+    QLabel* playerStatusDisplay = nullptr;
 
 private slots:
     void loadButtonPressed();

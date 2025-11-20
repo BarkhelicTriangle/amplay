@@ -6,6 +6,8 @@
 #include <QString>
 #include <QVariant>
 #include <QGridLayout>
+#include <QFileDialog>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
@@ -26,24 +28,34 @@ MainWindow::MainWindow(QWidget *parent)
     connect(loadButton, SIGNAL(pressed()), this, SLOT(loadButtonPressed()));
     lay->addWidget(loadButton, 0,1);
 
+    this->fileDialogButton = new QToolButton;
+    fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
+    connect(fileDialogButton, SIGNAL(pressed()), this, SLOT(fileDialogButtonPressed()));
+    lay->addWidget(fileDialogButton, 0,2);
+
     this->playButton = new QPushButton;
     playButton->setText("Play song");
     connect(playButton, SIGNAL(pressed()), player, SLOT(play()));
-    lay->addWidget(playButton, 1,0);
+    lay->addWidget(playButton, 1,1);
 
     this->pauseButton = new QPushButton;
     pauseButton->setText("Pause song");
     connect(pauseButton, SIGNAL(pressed()), player, SLOT(pause()));
-    lay->addWidget(pauseButton, 1,1);
+    lay->addWidget(pauseButton, 1,0);
 
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
-    lay->addWidget(playerStatusDisplay, 2,0, 1,2, Qt::AlignCenter);
+    lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignCenter);
 
     setLayout(lay);
 }
 
 MainWindow::~MainWindow() {}
+
+void MainWindow::fileDialogButtonPressed()
+{
+    filePathField->setText(QFileDialog::getOpenFileName());
+}
 
 void MainWindow::loadButtonPressed()
 {

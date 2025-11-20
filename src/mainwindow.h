@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QToolButton>
+#include <QQueue>
 
 class MainWindow : public QWidget
 {
@@ -19,6 +20,8 @@ public:
 private:
     QMediaPlayer* player = nullptr;
 
+    QQueue<QUrl> playlist{};
+
     QLineEdit* filePathField = nullptr;
     QPushButton* loadButton = nullptr;
     QToolButton* fileDialogButton = nullptr;
@@ -29,6 +32,7 @@ private:
     QLabel* playerStatusDisplay = nullptr;
 
 private slots:
+    void positionChanged(qint64 pos);
     void presentPlayerSourceFileDialog();
     void updatePlayerSource();
     void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);

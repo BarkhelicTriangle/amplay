@@ -46,11 +46,17 @@ MainWindow::MainWindow(QWidget *parent)
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
     lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignCenter);
+    updatePlayerStatusDisplay(player->mediaStatus());
 
     setLayout(lay);
 }
 
 MainWindow::~MainWindow() {}
+
+void MainWindow::positionChanged(qint64 pos)
+{
+    qDebug() << pos;
+}
 
 void MainWindow::presentPlayerSourceFileDialog()
 {
@@ -60,11 +66,19 @@ void MainWindow::presentPlayerSourceFileDialog()
 void MainWindow::updatePlayerSource()
 {
     QUrl path = filePathField->text();
-    player->setSource(path);
+    this->playlist.enqueue(path);
+    if (player->mediaStatus() == QMediaPlayer::NoMedia) player->setSource(path);
+    qDebug() << playlist;
 }
 
 void MainWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
 {
+    qDebug() << status;
     QString statusStr = QVariant::fromValue(status).toString();
     playerStatusDisplay->setText("Media status: " + statusStr);
+    if (status == QMediaPlayer::EndOfMedia)
+    {
+        playlist.dequeue();
+        player->setSource(playlist.head());
+    }
 }

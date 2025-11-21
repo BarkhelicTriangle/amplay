@@ -1,4 +1,5 @@
-#include "mainwindow.h"
+#include "playerwindow.h"
+#include "player.h"
 
 #include <QAudioOutput>
 #include <QDebug>
@@ -9,13 +10,11 @@
 #include <QFileDialog>
 
 
-MainWindow::MainWindow(QWidget *parent)
+PlayerWindow::PlayerWindow(QWidget *parent)
     : QWidget(parent)
 {
-    // initialize the player first thing
-    this->player = new QMediaPlayer();
-    player->setAudioOutput(new QAudioOutput);
-    connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(updatePlayerStatusDisplay(QMediaPlayer::MediaStatus)));
+    // initialize basePlayer pointer
+    basePlayer = qApp->findChild<Player*>("player");
 
     auto* lay = new QGridLayout(this);
 
@@ -25,60 +24,51 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->loadButton = new QPushButton;
     loadButton->setText("Load song");
-    connect(loadButton, SIGNAL(pressed()), this, SLOT(updatePlayerSource()));
+    connect(loadButton, &QPushButton::pressed,
+            this, [=] {
+                basePlayer->updatePlayerSource(QUrl(filePathField->text()));
+    });
     lay->addWidget(loadButton, 0,1);
 
     this->fileDialogButton = new QToolButton;
     fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
-    connect(fileDialogButton, SIGNAL(pressed()), this, SLOT(presentPlayerSourceFileDialog()));
+    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::addToPlaylistFromFileDialog);
     lay->addWidget(fileDialogButton, 0,2);
 
     this->playButton = new QPushButton;
     playButton->setText("Play song");
-    connect(playButton, SIGNAL(pressed()), player, SLOT(play()));
+    connect(playButton, SIGNAL(pressed()), basePlayer, SLOT(play()));
     lay->addWidget(playButton, 1,1);
 
     this->pauseButton = new QPushButton;
     pauseButton->setText("Pause song");
-    connect(pauseButton, SIGNAL(pressed()), player, SLOT(pause()));
+    connect(pauseButton, SIGNAL(pressed()), basePlayer, SLOT(pause()));
     lay->addWidget(pauseButton, 1,0);
 
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
     lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignCenter);
-    updatePlayerStatusDisplay(player->mediaStatus());
+    updatePlayerStatusDisplay(basePlayer->mediaStatus());
+    connect(basePlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(updatePlayerStatusDisplay(QMediaPlayer::MediaStatus)));
 
     setLayout(lay);
 }
 
-MainWindow::~MainWindow() {}
+PlayerWindow::~PlayerWindow() {}
 
-void MainWindow::positionChanged(qint64 pos)
-{
-    qDebug() << pos;
-}
-
-void MainWindow::presentPlayerSourceFileDialog()
+void PlayerWindow::addToPlaylistFromFileDialog()
 {
     filePathField->setText(QFileDialog::getOpenFileName());
 }
 
-void MainWindow::updatePlayerSource()
-{
-    QUrl path = filePathField->text();
-    this->playlist.enqueue(path);
-    if (player->mediaStatus() == QMediaPlayer::NoMedia) player->setSource(path);
-    qDebug() << playlist;
-}
-
-void MainWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
+void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
 {
     qDebug() << status;
     QString statusStr = QVariant::fromValue(status).toString();
     playerStatusDisplay->setText("Media status: " + statusStr);
     if (status == QMediaPlayer::EndOfMedia)
     {
-        playlist.dequeue();
-        player->setSource(playlist.head());
+        basePlayer->playlist.dequeue();
+        basePlayer->updatePlayerSource(basePlayer->playlist.head());
     }
 }

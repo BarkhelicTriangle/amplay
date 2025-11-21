@@ -1,6 +1,8 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef PLAYERWINDOW_H
+#define PLAYERWINDOW_H
 
+#include "player.h"
+#include <QApplication>
 #include <QWidget>
 #include <QPushButton>
 #include <QMediaPlayer>
@@ -9,18 +11,16 @@
 #include <QToolButton>
 #include <QQueue>
 
-class MainWindow : public QWidget
+class PlayerWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    PlayerWindow(QWidget *parent = nullptr);
+    ~PlayerWindow();
 
 private:
-    QMediaPlayer* player = nullptr;
-
-    QQueue<QUrl> playlist{};
+    Player* basePlayer;
 
     QLineEdit* filePathField = nullptr;
     QPushButton* loadButton = nullptr;
@@ -32,9 +32,7 @@ private:
     QLabel* playerStatusDisplay = nullptr;
 
 private slots:
-    void positionChanged(qint64 pos);
-    void presentPlayerSourceFileDialog();
-    void updatePlayerSource();
+    void addToPlaylistFromFileDialog();
     void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);
 };
-#endif // MAINWINDOW_H
+#endif // PLAYERWINDOW_H

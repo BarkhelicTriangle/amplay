@@ -37,8 +37,8 @@ PlayerWindow::PlayerWindow(QWidget *parent)
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
     lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignCenter);
-    updatePlayerStatusDisplay(basePlayer->mediaStatus());
-    connect(basePlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(updatePlayerStatusDisplay(QMediaPlayer::MediaStatus)));
+    updatePlayerStatusDisplay();
+    connect(basePlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(updatePlayerStatusDisplay()));
 
     setLayout(lay);
 }
@@ -49,12 +49,18 @@ void PlayerWindow::updatePlaylistFromFileDialog()
 {
     qDebug() << Q_FUNC_INFO;
     basePlayer->addToPlaylist(QFileDialog::getOpenFileName());
+    basePlayer->setSourceIfNoMedia();
 }
 
-void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
+void PlayerWindow::updatePlayerStatusDisplay()
 {
     qDebug() << Q_FUNC_INFO;
-    qDebug() << status;
-    QString statusStr = QVariant::fromValue(status).toString();
-    playerStatusDisplay->setText("Media status: " + statusStr);
+
+    // there should be a method of Player that returns all of this as a struct or something
+    QTextStream statusStream;
+    statusStream.setString(new QString);
+
+    statusStream << "basePlayer status: " << QVariant::fromValue(basePlayer->mediaStatus()).toString() << '\n';
+    statusStream << "Current file: " << basePlayer->source().fileName();
+    playerStatusDisplay->setText(statusStream.readAll());
 }

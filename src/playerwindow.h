@@ -30,6 +30,6 @@ private:
 
 private slots:
     void updatePlaylistFromFileDialog();
-    void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);
+    void updatePlayerStatusDisplay();
 };
 #endif // PLAYERWINDOW_H

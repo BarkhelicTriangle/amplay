@@ -26,6 +26,8 @@ void Player::removeSongAfterFinish(QMediaPlayer::MediaStatus status)
     if (status != QMediaPlayer::EndOfMedia) return;
 
     playlist.dequeue();
+
+    if(playlist.isEmpty()) return;
     setSource(playlist.head());
 }
 

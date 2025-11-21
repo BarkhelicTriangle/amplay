@@ -60,11 +60,13 @@ PlayerWindow::~PlayerWindow() {}
 
 void PlayerWindow::updatePathFieldFromFileDialog()
 {
+    qDebug() << Q_FUNC_INFO;
     filePathField->setText(QFileDialog::getOpenFileName());
 }
 
 void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
 {
+    qDebug() << Q_FUNC_INFO;
     qDebug() << status;
     QString statusStr = QVariant::fromValue(status).toString();
     playerStatusDisplay->setText("Media status: " + statusStr);

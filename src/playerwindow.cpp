@@ -18,34 +18,21 @@ PlayerWindow::PlayerWindow(QWidget *parent)
 
     auto* lay = new QGridLayout(this);
 
-    this->filePathField = new QLineEdit;
-    filePathField->setPlaceholderText("Enter a song's file path here");
-    lay->addWidget(filePathField, 0,0);
-
-    this->loadButton = new QPushButton;
-    loadButton->setText("Load song");
-    connect(loadButton, &QPushButton::pressed,
-            this, [=] {
-                basePlayer->addToPlaylist(QUrl(filePathField->text()));
-            }
-    );
-    connect(loadButton, &QPushButton::pressed, basePlayer, &Player::setSourceIfNoMedia);
-    lay->addWidget(loadButton, 0,1);
-
     this->fileDialogButton = new QToolButton;
     fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
-    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::updatePathFieldFromFileDialog);
+    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::updatePlaylistFromFileDialog);
     lay->addWidget(fileDialogButton, 0,2);
 
     this->playButton = new QPushButton;
     playButton->setText("Play song");
+    connect(playButton, SIGNAL(pressed()), basePlayer, SLOT(setSourceIfNoMedia()));
     connect(playButton, SIGNAL(pressed()), basePlayer, SLOT(play()));
-    lay->addWidget(playButton, 1,1);
+    lay->addWidget(playButton, 0,0);
 
     this->pauseButton = new QPushButton;
     pauseButton->setText("Pause song");
     connect(pauseButton, SIGNAL(pressed()), basePlayer, SLOT(pause()));
-    lay->addWidget(pauseButton, 1,0);
+    lay->addWidget(pauseButton, 0,1);
 
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
@@ -58,10 +45,10 @@ PlayerWindow::PlayerWindow(QWidget *parent)
 
 PlayerWindow::~PlayerWindow() {}
 
-void PlayerWindow::updatePathFieldFromFileDialog()
+void PlayerWindow::updatePlaylistFromFileDialog()
 {
     qDebug() << Q_FUNC_INFO;
-    filePathField->setText(QFileDialog::getOpenFileName());
+    basePlayer->addToPlaylist(QFileDialog::getOpenFileName());
 }
 
 void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)

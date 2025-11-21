@@ -22,17 +22,14 @@ public:
 private:
     Player* basePlayer;
 
-    QLineEdit* filePathField = nullptr;
-    QPushButton* loadButton = nullptr;
     QToolButton* fileDialogButton = nullptr;
-
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
 
     QLabel* playerStatusDisplay = nullptr;
 
 private slots:
-    void updatePathFieldFromFileDialog();
+    void updatePlaylistFromFileDialog();
     void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);
 };
 #endif // PLAYERWINDOW_H

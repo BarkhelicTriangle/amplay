@@ -22,19 +22,18 @@ void Player::addToPlaylist(QUrl path)
 void Player::removeSongAfterFinish(QMediaPlayer::MediaStatus status)
 {
     qDebug() << Q_FUNC_INFO;
-    if (status == QMediaPlayer::EndOfMedia)
-    {
-        playlist.dequeue();
-        setSource(playlist.head());
-    }
+    if (status != QMediaPlayer::EndOfMedia) return;
+
+    playlist.dequeue();
+    setSource(playlist.head());
 }
 
 void Player::setSourceIfNoMedia()
 {
     qDebug() << Q_FUNC_INFO;
 
-    // calling head on empty QQueue crashes
-    if (playlist.isEmpty()) return;
+    // calling head on empty QQueue crashes || no reason to keep going if no Media
+    if (playlist.isEmpty() || mediaStatus() != NoMedia) return;
 
-    if (mediaStatus() == QMediaPlayer::NoMedia) setSource(playlist.head());
+    setSource(playlist.head());
 }

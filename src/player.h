@@ -11,12 +11,13 @@ class Player : public QMediaPlayer
 {
     Q_OBJECT
 public:
-    // if i'm being honest a QList would probably be better, would absolutely be easier to use
     QQueue<QUrl> playlist;
     explicit Player(QApplication *parent = nullptr);
 
 public slots:
-    void updatePlayerSource(QUrl path);
+    void addToPlaylist(QUrl path);
+    void setSourceIfNoMedia();
+    void removeSongAfterFinish(QMediaPlayer::MediaStatus status);
 
 signals:
 };

@@ -32,7 +32,7 @@ private:
     QLabel* playerStatusDisplay = nullptr;
 
 private slots:
-    void addToPlaylistFromFileDialog();
+    void updatePathFieldFromFileDialog();
     void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);
 };
 #endif // PLAYERWINDOW_H

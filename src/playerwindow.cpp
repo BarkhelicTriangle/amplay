@@ -26,13 +26,15 @@ PlayerWindow::PlayerWindow(QWidget *parent)
     loadButton->setText("Load song");
     connect(loadButton, &QPushButton::pressed,
             this, [=] {
-                basePlayer->updatePlayerSource(QUrl(filePathField->text()));
-    });
+                basePlayer->addToPlaylist(QUrl(filePathField->text()));
+            }
+    );
+    connect(loadButton, &QPushButton::pressed, basePlayer, &Player::setSourceIfNoMedia);
     lay->addWidget(loadButton, 0,1);
 
     this->fileDialogButton = new QToolButton;
     fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
-    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::addToPlaylistFromFileDialog);
+    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::updatePathFieldFromFileDialog);
     lay->addWidget(fileDialogButton, 0,2);
 
     this->playButton = new QPushButton;
@@ -56,7 +58,7 @@ PlayerWindow::PlayerWindow(QWidget *parent)
 
 PlayerWindow::~PlayerWindow() {}
 
-void PlayerWindow::addToPlaylistFromFileDialog()
+void PlayerWindow::updatePathFieldFromFileDialog()
 {
     filePathField->setText(QFileDialog::getOpenFileName());
 }
@@ -66,9 +68,4 @@ void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
     qDebug() << status;
     QString statusStr = QVariant::fromValue(status).toString();
     playerStatusDisplay->setText("Media status: " + statusStr);
-    if (status == QMediaPlayer::EndOfMedia)
-    {
-        basePlayer->playlist.dequeue();
-        basePlayer->updatePlayerSource(basePlayer->playlist.head());
-    }
 }

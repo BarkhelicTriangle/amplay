@@ -22,7 +22,7 @@ public:
 private:
     Player* basePlayer;
 
-    QPushButton* fileDialogButton = nullptr;
+    QPushButton* playlistAddButton = nullptr;
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
 

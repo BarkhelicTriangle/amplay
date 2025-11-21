@@ -29,10 +29,10 @@ PlayerWindow::PlayerWindow(QWidget *parent)
     connect(pauseButton, SIGNAL(pressed()), basePlayer, SLOT(pause()));
     lay->addWidget(pauseButton, 0,1);
 
-    this->fileDialogButton = new QPushButton;
-    fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
-    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::updatePlaylistFromFileDialog);
-    lay->addWidget(fileDialogButton, 0,2);
+    this->playlistAddButton = new QPushButton;
+    playlistAddButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
+    connect(playlistAddButton, &QPushButton::pressed, this, &PlayerWindow::updatePlaylistFromFileDialog);
+    lay->addWidget(playlistAddButton, 0,2);
 
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");

@@ -7,6 +7,7 @@ Player::Player(QApplication *parent)
 {
     setAudioOutput(new QAudioOutput);
     connect(this, &Player::mediaStatusChanged, this, &Player::removeSongAfterFinish);
+    connect(this, &Player::mediaStatusChanged, this, &Player::playSongWhenLoaded);
 }
 
 
@@ -36,4 +37,12 @@ void Player::setSourceIfNoMedia()
     if (playlist.isEmpty() || mediaStatus() != NoMedia) return;
 
     setSource(playlist.head());
+}
+
+void Player::playSongWhenLoaded(QMediaPlayer::MediaStatus status)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (status != LoadedMedia) return;
+    
+    emit play();
 }

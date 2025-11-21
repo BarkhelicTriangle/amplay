@@ -18,21 +18,21 @@ PlayerWindow::PlayerWindow(QWidget *parent)
 
     auto* lay = new QGridLayout(this);
 
-    this->fileDialogButton = new QToolButton;
-    fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
-    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::updatePlaylistFromFileDialog);
-    lay->addWidget(fileDialogButton, 0,2);
-
     this->playButton = new QPushButton;
-    playButton->setText("Play song");
+    playButton->setText("Play");
     connect(playButton, SIGNAL(pressed()), basePlayer, SLOT(setSourceIfNoMedia()));
     connect(playButton, SIGNAL(pressed()), basePlayer, SLOT(play()));
     lay->addWidget(playButton, 0,0);
 
     this->pauseButton = new QPushButton;
-    pauseButton->setText("Pause song");
+    pauseButton->setText("Pause");
     connect(pauseButton, SIGNAL(pressed()), basePlayer, SLOT(pause()));
     lay->addWidget(pauseButton, 0,1);
+
+    this->fileDialogButton = new QPushButton;
+    fileDialogButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
+    connect(fileDialogButton, &QPushButton::pressed, this, &PlayerWindow::updatePlaylistFromFileDialog);
+    lay->addWidget(fileDialogButton, 0,2);
 
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");

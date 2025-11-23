@@ -8,6 +8,7 @@
 #include <QVariant>
 #include <QGridLayout>
 #include <QFileDialog>
+#include <QMediaMetadata>
 
 
 PlayerWindow::PlayerWindow(QWidget *parent)
@@ -36,7 +37,7 @@ PlayerWindow::PlayerWindow(QWidget *parent)
 
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
-    lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignCenter);
+    lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignLeft);
     updatePlayerStatusDisplay();
     connect(basePlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(updatePlayerStatusDisplay()));
 
@@ -60,7 +61,11 @@ void PlayerWindow::updatePlayerStatusDisplay()
     QTextStream statusStream;
     statusStream.setString(new QString);
 
-    statusStream << "basePlayer status: " << QVariant::fromValue(basePlayer->mediaStatus()).toString() << '\n';
-    statusStream << "Current file: " << basePlayer->source().fileName();
+    QString songArtist = basePlayer->metaData().stringValue(QMediaMetaData::ContributingArtist);
+    QString songTitle = basePlayer->metaData().stringValue(QMediaMetaData::Title);
+
+    qDebug() << basePlayer->metaData();
+
+    statusStream << "Now playing: " << songArtist << " - " << songTitle;
     playerStatusDisplay->setText(statusStream.readAll());
 }

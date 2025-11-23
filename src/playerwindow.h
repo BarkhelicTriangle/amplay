@@ -26,10 +26,10 @@ private:
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
 
-    QLabel* playerStatusDisplay = nullptr;
+    QLabel* metadataTextDisplay = nullptr;
 
 private slots:
     void updatePlaylistFromFileDialog();
-    void updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status);
+    void updateMetadataTextDisplay(QMediaPlayer::MediaStatus status);
 };
 #endif // PLAYERWINDOW_H

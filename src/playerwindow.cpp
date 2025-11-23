@@ -35,11 +35,11 @@ PlayerWindow::PlayerWindow(QWidget *parent)
     connect(playlistAddButton, &QPushButton::pressed, this, &PlayerWindow::updatePlaylistFromFileDialog);
     lay->addWidget(playlistAddButton, 0,2);
 
-    this->playerStatusDisplay = new QLabel;
-    playerStatusDisplay->setText("Media status: N/A");
-    lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignLeft);
+    this->metadataTextDisplay = new QLabel;
+    metadataTextDisplay->setText("Media status: N/A");
+    lay->addWidget(metadataTextDisplay, 2,0, 1,3, Qt::AlignLeft);
     //updatePlayerStatusDisplay();
-    connect(basePlayer, &Player::mediaStatusChanged, this, &PlayerWindow::updatePlayerStatusDisplay);
+    connect(basePlayer, &Player::mediaStatusChanged, this, &PlayerWindow::updateMetadataTextDisplay);
 
     setLayout(lay);
 }
@@ -53,7 +53,7 @@ void PlayerWindow::updatePlaylistFromFileDialog()
     basePlayer->setSourceIfNoMedia();
 }
 
-void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
+void PlayerWindow::updateMetadataTextDisplay(QMediaPlayer::MediaStatus status)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -68,5 +68,5 @@ void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
     qDebug() << basePlayer->metaData();
 
     statusStream << "Now playing: " << songArtist << " - " << songTitle;
-    playerStatusDisplay->setText(statusStream.readAll());
+    metadataTextDisplay->setText(statusStream.readAll());
 }

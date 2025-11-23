@@ -3,7 +3,6 @@
 
 #include <QApplication>
 #include <QDebug>
-#include <QMap>
 #include <QMediaPlayer>
 #include <QQueue>
 #include <QUrl>

@@ -38,8 +38,8 @@ PlayerWindow::PlayerWindow(QWidget *parent)
     this->playerStatusDisplay = new QLabel;
     playerStatusDisplay->setText("Media status: N/A");
     lay->addWidget(playerStatusDisplay, 2,0, 1,3, Qt::AlignLeft);
-    updatePlayerStatusDisplay();
-    connect(basePlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(updatePlayerStatusDisplay()));
+    //updatePlayerStatusDisplay();
+    connect(basePlayer, &Player::mediaStatusChanged, this, &PlayerWindow::updatePlayerStatusDisplay);
 
     setLayout(lay);
 }
@@ -53,11 +53,12 @@ void PlayerWindow::updatePlaylistFromFileDialog()
     basePlayer->setSourceIfNoMedia();
 }
 
-void PlayerWindow::updatePlayerStatusDisplay()
+void PlayerWindow::updatePlayerStatusDisplay(QMediaPlayer::MediaStatus status)
 {
     qDebug() << Q_FUNC_INFO;
 
-    // there should be a method of Player that returns all of this as a struct or something
+    if (status != QMediaPlayer::LoadedMedia) return;
+
     QTextStream statusStream;
     statusStream.setString(new QString);
 

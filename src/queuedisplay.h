@@ -9,6 +9,7 @@ class QueueDisplay : public QListWidget
     Q_OBJECT
 public:
     QueueDisplay();
+
 public slots:
     void updateQueueDisplay();
 };

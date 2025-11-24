@@ -6,34 +6,28 @@
 #include <QGridLayout>
 #include <QWindow>
 
-QWidget* createWindow()
+void createWindows()
 {
-    QWidget* window = new QWidget();
-    QGridLayout* grid = new QGridLayout();
-
     PlayerControls* controls = new PlayerControls();
-    grid->addWidget(controls, 0,0);
+    controls->setWindowTitle("amplay PlayerControls");
+    controls->show();
 
     QueueDisplay* queueDisplay = new QueueDisplay();
-    grid->addWidget(queueDisplay, 0,1);
-
-    window->setLayout(grid);
-
-    QObject::connect(qApp, SIGNAL(destroyed()),
-                     window, SLOT(deleteLater()));
-
-    return window;
+    queueDisplay->setWindowTitle("amplay QueueDisplay");
+    queueDisplay->show();
 }
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    qDebug() << qVersion();
+
     Player* player = new Player();
     player->setParent(&app);
 
-    QWidget* window = createWindow();
-    window->show();
+    createWindows();
+   // window->show();
 
     return app.exec();
 }

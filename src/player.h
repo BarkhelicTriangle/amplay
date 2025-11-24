@@ -16,7 +16,7 @@ public:
     static Player* findAppPlayer();
 
 public slots:
-    void addToPlaylist(QUrl path);
+    void addToQueue(QUrl path);
     void setSourceIfNoMedia();
     void playSongWhenLoaded(QMediaPlayer::MediaStatus status);
     void removeSongAfterFinish(QMediaPlayer::MediaStatus status);

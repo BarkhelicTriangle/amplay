@@ -12,15 +12,12 @@ class PlayerControls : public QWidget
 {
     Q_OBJECT
 private:
-    Player* basePlayer;
+    Player* basePlayer = Player::findAppPlayer();
     QHBoxLayout* lay = nullptr;
 public:
     PlayerControls();
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
-
-private slots:
-
 };
 
 #endif // PLAYERCONTROLS_H

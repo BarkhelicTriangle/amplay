@@ -5,14 +5,14 @@
 
 QueueWindow::QueueWindow() : QWidget()
 {
-    setWindowTitle("amplay QueueDisplay");
-    queueWidget->setViewMode(QListView::ListMode);
+    this->setWindowTitle("amplay QueueWindow");
+
+    this->queueWidget->setViewMode(QListView::ListMode);
     connect(Player::findAppPlayer(), SIGNAL(playlistChanged()),
             this, SLOT(updateQueueDisplay()));
-
     lay->addWidget(queueWidget);
 
-    enqueueButton->setText("Add to Queue");
+    enqueueButton->setText("Add Song to Queue");
     connect(enqueueButton, SIGNAL(pressed()),
             this, SLOT(updateQueueFromFileDialog()));
     lay->addWidget(enqueueButton);
@@ -20,16 +20,17 @@ QueueWindow::QueueWindow() : QWidget()
 
 void QueueWindow::updateQueueFromFileDialog()
 {
-    basePlayer->addToPlaylist(QFileDialog::getOpenFileUrl());
+    qDebug() << Q_FUNC_INFO;
+
+    basePlayer->addToQueue(QFileDialog::getOpenFileUrl());
     qDebug() << basePlayer->queue;
 }
-
 
 void QueueWindow::updateQueueDisplay()
 {
     qDebug() << Q_FUNC_INFO;
 
     queueWidget->clear();
-    for (auto item : qApp->findChild<Player*>("player")->queue)
+    for (QUrl item : qApp->findChild<Player*>("player")->queue)
         queueWidget->addItem(item.fileName());
 }

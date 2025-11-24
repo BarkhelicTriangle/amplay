@@ -11,7 +11,7 @@ class Player : public QMediaPlayer
 {
     Q_OBJECT
 public:
-    QQueue<QUrl> playlist;
+    QQueue<QUrl> queue;
     explicit Player(QApplication *parent = nullptr);
     static Player* findAppPlayer();
 

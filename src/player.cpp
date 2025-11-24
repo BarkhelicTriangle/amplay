@@ -22,8 +22,8 @@ void Player::addToPlaylist(QUrl path)
     qDebug() << Q_FUNC_INFO;
     if (path == QUrl("")) return;
 
-    this->playlist.enqueue(path);
-    qDebug() << playlist;
+    this->queue.enqueue(path);
+    qDebug() << queue;
 
     emit playlistChanged();
 }
@@ -33,10 +33,10 @@ void Player::removeSongAfterFinish(QMediaPlayer::MediaStatus status)
     qDebug() << Q_FUNC_INFO;
     if (status != QMediaPlayer::EndOfMedia) return;
 
-    playlist.dequeue();
+    queue.dequeue();
 
-    if(playlist.isEmpty()) return;
-    setSource(playlist.head());
+    if(queue.isEmpty()) return;
+    setSource(queue.head());
 
     emit playlistChanged();
 }
@@ -46,9 +46,9 @@ void Player::setSourceIfNoMedia()
     qDebug() << Q_FUNC_INFO;
 
     // calling head on empty QQueue crashes || no reason to keep going if no Media
-    if (playlist.isEmpty() || mediaStatus() != NoMedia) return;
+    if (queue.isEmpty() || mediaStatus() != NoMedia) return;
 
-    setSource(playlist.head());
+    setSource(queue.head());
 }
 
 void Player::playSongWhenLoaded(QMediaPlayer::MediaStatus status)

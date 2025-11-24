@@ -14,14 +14,14 @@ QueueWindow::QueueWindow() : QWidget()
 
     enqueueButton->setText("Add to Queue");
     connect(enqueueButton, SIGNAL(pressed()),
-            this, SLOT(updatePlaylistFromFileDialog()));
+            this, SLOT(updateQueueFromFileDialog()));
     lay->addWidget(enqueueButton);
 }
 
-void QueueWindow::updatePlaylistFromFileDialog()
+void QueueWindow::updateQueueFromFileDialog()
 {
     basePlayer->addToPlaylist(QFileDialog::getOpenFileUrl());
-    qDebug() << basePlayer->playlist;
+    qDebug() << basePlayer->queue;
 }
 
 
@@ -30,6 +30,6 @@ void QueueWindow::updateQueueDisplay()
     qDebug() << Q_FUNC_INFO;
 
     queueWidget->clear();
-    for (auto item : qApp->findChild<Player*>("player")->playlist)
+    for (auto item : qApp->findChild<Player*>("player")->queue)
         queueWidget->addItem(item.fileName());
 }

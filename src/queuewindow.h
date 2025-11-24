@@ -14,15 +14,15 @@ class QueueWindow : public QWidget
     Q_OBJECT
 private:
     Player* basePlayer = Player::findAppPlayer();
+    QVBoxLayout* lay = new QVBoxLayout(this);
 public:
     QueueWindow();
-    QVBoxLayout* lay = new QVBoxLayout(this);
     QListWidget* queueWidget = new QListWidget(this);
     QPushButton* enqueueButton = new QPushButton(this);
 
 public slots:
     void updateQueueDisplay();
-    void updatePlaylistFromFileDialog();
+    void updateQueueFromFileDialog();
 };
 
 #endif // QUEUEWINDOW_H

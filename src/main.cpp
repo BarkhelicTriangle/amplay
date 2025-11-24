@@ -1,6 +1,6 @@
 #include "playercontrols.h"
 #include "player.h"
-#include "queuedisplay.h"
+#include "queuewindow.h"
 
 #include <QApplication>
 #include <QGridLayout>
@@ -9,11 +9,9 @@
 void createWindows()
 {
     PlayerControls* controls = new PlayerControls();
-    controls->setWindowTitle("amplay PlayerControls");
     controls->show();
 
-    QueueDisplay* queueDisplay = new QueueDisplay();
-    queueDisplay->setWindowTitle("amplay QueueDisplay");
+    QueueWindow* queueDisplay = new QueueWindow();
     queueDisplay->show();
 }
 

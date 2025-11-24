@@ -6,6 +6,7 @@
 PlayerControls::PlayerControls() : QWidget()
 {
     basePlayer = Player::findAppPlayer();
+    setWindowTitle("amplay PlayerControls");
 
     lay = new QHBoxLayout(this);
 
@@ -19,15 +20,4 @@ PlayerControls::PlayerControls() : QWidget()
     pauseButton->setText("Pause");
     connect(pauseButton, SIGNAL(pressed()), basePlayer, SLOT(pause()));
     lay->addWidget(pauseButton, 1);
-
-    this->playlistAddButton = new QPushButton(this);
-    playlistAddButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
-    connect(playlistAddButton, &QPushButton::pressed, this, &PlayerControls::updatePlaylistFromFileDialog);
-    lay->addWidget(playlistAddButton, 2);
-}
-
-void PlayerControls::updatePlaylistFromFileDialog()
-{
-    basePlayer->addToPlaylist(QFileDialog::getOpenFileUrl());
-    qDebug() << basePlayer->playlist;
 }

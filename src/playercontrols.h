@@ -16,12 +16,11 @@ private:
     QHBoxLayout* lay = nullptr;
 public:
     PlayerControls();
-    QPushButton* playlistAddButton = nullptr;
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
 
 private slots:
-    void updatePlaylistFromFileDialog();
+
 };
 
 #endif // PLAYERCONTROLS_H

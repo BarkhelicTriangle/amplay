@@ -5,9 +5,15 @@
 Player::Player(QApplication *parent)
     : QMediaPlayer{parent}
 {
+    setObjectName("player");
     setAudioOutput(new QAudioOutput);
     connect(this, &Player::mediaStatusChanged, this, &Player::removeSongAfterFinish);
     connect(this, &Player::mediaStatusChanged, this, &Player::playSongWhenLoaded);
+}
+
+Player* Player::findAppPlayer()
+{
+    return qApp->findChild<Player*>("player");
 }
 
 

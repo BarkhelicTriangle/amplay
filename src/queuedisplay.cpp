@@ -5,7 +5,7 @@
 QueueDisplay::QueueDisplay() : QListWidget()
 {
     setViewMode(QListView::ListMode);
-    connect(qApp->findChild<Player*>("player"), SIGNAL(playlistChanged()),
+    connect(Player::findAppPlayer(), SIGNAL(playlistChanged()),
             this, SLOT(updateQueueDisplay()));
 }
 

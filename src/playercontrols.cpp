@@ -5,7 +5,7 @@
 
 PlayerControls::PlayerControls() : QWidget()
 {
-    basePlayer = qApp->findChild<Player*>("player");
+    basePlayer = Player::findAppPlayer();
 
     lay = new QHBoxLayout(this);
 

@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     Player* player = new Player(&app);
-    player->setObjectName("player");
 
     QWidget* window = createWindow();
     window->show();

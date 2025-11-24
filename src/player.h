@@ -13,6 +13,7 @@ class Player : public QMediaPlayer
 public:
     QQueue<QUrl> playlist;
     explicit Player(QApplication *parent = nullptr);
+    static Player* findAppPlayer();
 
 public slots:
     void addToPlaylist(QUrl path);

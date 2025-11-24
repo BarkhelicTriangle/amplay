@@ -21,12 +21,14 @@ public:
 
 private:
     Player* basePlayer;
-
+/* Consolidate into PlayerControls
     QPushButton* playlistAddButton = nullptr;
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
+*/
 
-    QLabel* metadataTextDisplay = nullptr;
+/*    Consolidate into MetadataInfo
+ *    QLabel* metadataTextDisplay = nullptr; */
 
 private slots:
     void updatePlaylistFromFileDialog();

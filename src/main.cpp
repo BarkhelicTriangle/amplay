@@ -30,7 +30,8 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Player* player = new Player(&app);
+    Player* player = new Player();
+    player->setParent(&app);
 
     QWidget* window = createWindow();
     window->show();

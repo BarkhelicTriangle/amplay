@@ -12,6 +12,8 @@ QueueDisplay::QueueDisplay() : QListWidget()
 void QueueDisplay::updateQueueDisplay()
 {
     qDebug() << Q_FUNC_INFO;
+
+    this->clear();
     for (auto item : qApp->findChild<Player*>("player")->playlist)
         addItem(item.toString());
 }

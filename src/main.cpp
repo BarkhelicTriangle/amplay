@@ -19,6 +19,10 @@ QWidget* createWindow()
     grid->addWidget(queueDisplay, 0,1);
 
     window->setLayout(grid);
+
+    QObject::connect(qApp, SIGNAL(destroyed()),
+                     window, SLOT(deleteLater()));
+
     return window;
 }
 

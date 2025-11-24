@@ -6,6 +6,18 @@
 #include <QGridLayout>
 #include <QWindow>
 
+QWidget* createWindow()
+{
+    QWidget* window = new QWidget();
+    QGridLayout* grid = new QGridLayout();
+
+    PlayerControls* controls = new PlayerControls();
+    grid->addWidget(controls);
+
+    window->setLayout(grid);
+    return window;
+}
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -13,14 +25,8 @@ int main(int argc, char *argv[])
     Player* player = new Player(&app);
     player->setObjectName("player");
 
-    //Initialize window (should be its own function)
-    QWidget* win = new QWidget;
-    QGridLayout* lay = new QGridLayout;
+    QWidget* window = createWindow();
+    window->show();
 
-    PlayerControls controls;
-    lay->addWidget(&controls);
-
-    win->setLayout(lay);
-    win->show();
     return app.exec();
 }

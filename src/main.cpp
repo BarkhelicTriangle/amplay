@@ -1,4 +1,3 @@
-//#include "playerwindow.h"
 #include "playercontrols.h"
 #include "player.h"
 #include "queuedisplay.h"

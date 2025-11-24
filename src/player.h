@@ -21,6 +21,7 @@ public slots:
     void removeSongAfterFinish(QMediaPlayer::MediaStatus status);
 
 signals:
+    void playlistChanged();
 };
 
 #endif // PLAYER_H

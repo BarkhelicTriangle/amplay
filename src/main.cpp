@@ -1,6 +1,7 @@
 //#include "playerwindow.h"
 #include "playercontrols.h"
 #include "player.h"
+#include "queuedisplay.h"
 
 #include <QApplication>
 #include <QGridLayout>
@@ -12,7 +13,10 @@ QWidget* createWindow()
     QGridLayout* grid = new QGridLayout();
 
     PlayerControls* controls = new PlayerControls();
-    grid->addWidget(controls);
+    grid->addWidget(controls, 0,0);
+
+    QueueDisplay* queueDisplay = new QueueDisplay();
+    grid->addWidget(queueDisplay, 0,1);
 
     window->setLayout(grid);
     return window;

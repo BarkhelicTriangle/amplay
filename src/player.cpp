@@ -18,6 +18,8 @@ void Player::addToPlaylist(QUrl path)
 
     this->playlist.enqueue(path);
     qDebug() << playlist;
+
+    emit playlistChanged();
 }
 
 void Player::removeSongAfterFinish(QMediaPlayer::MediaStatus status)
@@ -29,6 +31,8 @@ void Player::removeSongAfterFinish(QMediaPlayer::MediaStatus status)
 
     if(playlist.isEmpty()) return;
     setSource(playlist.head());
+
+    emit playlistChanged();
 }
 
 void Player::setSourceIfNoMedia()

@@ -28,6 +28,6 @@ PlayerControls::PlayerControls() : QWidget()
 
 void PlayerControls::updatePlaylistFromFileDialog()
 {
-    basePlayer->playlist.enqueue(QFileDialog::getOpenFileUrl());
+    basePlayer->addToPlaylist(QFileDialog::getOpenFileUrl());
     qDebug() << basePlayer->playlist;
 }

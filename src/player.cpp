@@ -1,6 +1,7 @@
 #include "player.h"
 
 #include <QAudioOutput>
+#include <QDebug>
 
 Player::Player(QApplication *parent)
     : QMediaPlayer{parent}

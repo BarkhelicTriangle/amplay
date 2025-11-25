@@ -31,6 +31,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/player.h src/player.cpp
         src/playercontrols.h src/playercontrols.cpp
         src/queuewindow.h src/queuewindow.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET amplay APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

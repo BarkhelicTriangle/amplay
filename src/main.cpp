@@ -3,8 +3,6 @@
 #include "queuewindow.h"
 
 #include <QApplication>
-#include <QGridLayout>
-#include <QWindow>
 
 void createWindows()
 {
@@ -25,7 +23,6 @@ int main(int argc, char *argv[])
     player->setParent(&app);
 
     createWindows();
-   // window->show();
 
     return app.exec();
 }

@@ -1,10 +1,9 @@
 #ifndef PLAYERCONTROLS_H
 #define PLAYERCONTROLS_H
 
-#include <QWidget>
-#include <QPushButton>
-#include <QApplication>
 #include <QHBoxLayout>
+#include <QPushButton>
+#include <QWidget>
 
 #include "player.h"
 

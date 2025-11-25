@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include <QApplication>
-#include <QDebug>
 #include <QMediaPlayer>
 #include <QQueue>
 #include <QUrl>

@@ -3,22 +3,21 @@
 
 #include "player.h"
 
-#include <QWidget>
 #include <QListWidget>
 #include <QPushButton>
-#include <QLabel>
 #include <QVBoxLayout>
+#include <QWidget>
 
 class QueueWindow : public QWidget
 {
     Q_OBJECT
 private:
-    Player* basePlayer = Player::findAppPlayer();
-    QVBoxLayout* lay = new QVBoxLayout(this);
+    Player* basePlayer = nullptr;
+    QVBoxLayout* lay = nullptr;
 public:
     QueueWindow();
-    QListWidget* queueWidget = new QListWidget(this);
-    QPushButton* enqueueButton = new QPushButton(this);
+    QListWidget* queueWidget = nullptr;
+    QPushButton* enqueueButton = nullptr;
 
 public slots:
     void updateQueueDisplay();

@@ -1,7 +1,8 @@
 #include "playercontrols.h"
 
-#include <QObject>
+#include <QApplication>
 #include <QFileDialog>
+#include <QObject>
 
 PlayerControls::PlayerControls() : QWidget()
 {

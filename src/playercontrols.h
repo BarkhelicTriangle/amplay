@@ -11,7 +11,7 @@ class PlayerControls : public QWidget
 {
     Q_OBJECT
 private:
-    Player* basePlayer = Player::findAppPlayer();
+    Player* basePlayer = nullptr;;
     QHBoxLayout* lay = nullptr;
 public:
     PlayerControls();

@@ -15,7 +15,7 @@ QueueWindow::QueueWindow() : QWidget()
     lay->addWidget(queueWidget);
 
     this->enqueueButton = new QPushButton(this);
-    enqueueButton->setText("Add Song to Queue");
+    enqueueButton->setText("Add to Queue");
     connect(enqueueButton, SIGNAL(pressed()), this, SLOT(updateQueueFromFileDialog()));
     lay->addWidget(enqueueButton);
 }
@@ -23,8 +23,9 @@ QueueWindow::QueueWindow() : QWidget()
 void QueueWindow::updateQueueFromFileDialog()
 {
     qDebug() << Q_FUNC_INFO;
-
-    basePlayer->addToQueue(QFileDialog::getOpenFileUrl());
+    auto newSongs = QFileDialog::getOpenFileUrls();
+    for (auto song : newSongs)
+        basePlayer->addToQueue(song);
     qDebug() << basePlayer->queue;
 }
 

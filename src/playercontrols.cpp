@@ -11,7 +11,6 @@ PlayerControls::PlayerControls() : QWidget()
     this->basePlayer = Player::findAppPlayer();
     this->lay = new QHBoxLayout(this);
 
-    // todo: see how clean this is? apply this style in queuewindow.cpp!!!
     this->playButton = new QPushButton(this);
     playButton->setText("Play");
     connect(playButton, SIGNAL(pressed()), basePlayer, SLOT(setSourceIfNoMedia()));

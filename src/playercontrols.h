@@ -10,7 +10,7 @@ class PlayerControls : public QWidget
 {
     Q_OBJECT
 private:
-    Player* basePlayer = nullptr;;
+    Player* basePlayer = nullptr;
     QHBoxLayout* lay = nullptr;
 public:
     PlayerControls();

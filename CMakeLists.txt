@@ -51,6 +51,13 @@ else()
     endif()
 endif()
 
+if(MSVC)
+    target_compile_options(amplay PRIVATE /W4)
+else()
+    target_compile_options(amplay PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+
 target_link_libraries(amplay PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(amplay PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 target_link_libraries(amplay PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

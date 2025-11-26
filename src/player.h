@@ -1,5 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 
 #include <QApplication>
 #include <QMediaPlayer>
@@ -23,5 +22,3 @@ public slots:
 signals:
     void playlistChanged();
 };
-
-#endif // PLAYER_H

@@ -1,5 +1,4 @@
-#ifndef QUEUEWINDOW_H
-#define QUEUEWINDOW_H
+#pragma once
 
 #include "player.h"
 
@@ -23,5 +22,3 @@ public slots:
     void updateQueueDisplay();
     void updateQueueFromFileDialog();
 };
-
-#endif // QUEUEWINDOW_H

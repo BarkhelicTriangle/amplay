@@ -1,5 +1,4 @@
-#ifndef PLAYERCONTROLS_H
-#define PLAYERCONTROLS_H
+#pragma once
 
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -18,5 +17,3 @@ public:
     QPushButton* playButton = nullptr;
     QPushButton* pauseButton = nullptr;
 };
-
-#endif // PLAYERCONTROLS_H

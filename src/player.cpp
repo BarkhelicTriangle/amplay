@@ -26,7 +26,7 @@ void Player::addToQueue(QUrl path)
     // this will be true if the user cancels
     if (path == QUrl("")) return;
 
-    this->queue.enqueue(path);
+    this->queue.enqueue(QueueItem(path, nullptr));
     emit playlistChanged();
 }
 
@@ -39,7 +39,7 @@ void Player::removeSongAfterFinish(QMediaPlayer::MediaStatus status)
     if(queue.isEmpty()) return;
 
     //this should be moved elsewhere
-    setSource(queue.head());
+    setSource(queue.head().filePath);
 
     emit playlistChanged();
 }
@@ -50,7 +50,7 @@ void Player::setSourceIfNoMedia()
 
     // calling head on empty QQueue crashes || no reason to keep going if no Media
     if (queue.isEmpty() || mediaStatus() != NoMedia) return;
-    setSource(queue.head());
+    setSource(queue.head().filePath);
 }
 
 void Player::playSongWhenLoaded(QMediaPlayer::MediaStatus status)

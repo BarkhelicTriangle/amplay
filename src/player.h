@@ -4,12 +4,23 @@
 #include <QMediaPlayer>
 #include <QQueue>
 #include <QUrl>
+#include <QAudioBuffer>
+
+struct QueueItem {
+    QUrl filePath;
+    QAudioBuffer* buffer;
+
+    QueueItem(QUrl pFilePath, QAudioBuffer* pBuffer) {
+        filePath = pFilePath;
+        buffer = pBuffer;
+    }
+};
 
 class Player : public QMediaPlayer
 {
     Q_OBJECT
 public:
-    QQueue<QUrl> queue;
+    QQueue<QueueItem> queue;
     explicit Player(QApplication *parent = nullptr);
     static Player* findAppPlayer();
 

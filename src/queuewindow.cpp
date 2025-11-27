@@ -26,7 +26,7 @@ void QueueWindow::updateQueueFromFileDialog()
     auto newSongs = QFileDialog::getOpenFileUrls();
     for (auto song : newSongs)
         basePlayer->addToQueue(song);
-    qDebug() << basePlayer->queue;
+    //qDebug() << basePlayer->queue;
 }
 
 void QueueWindow::updateQueueDisplay()
@@ -34,6 +34,6 @@ void QueueWindow::updateQueueDisplay()
     qDebug() << Q_FUNC_INFO;
 
     queueWidget->clear();
-    for (QUrl item : qApp->findChild<Player*>("player")->queue)
-        queueWidget->addItem(item.fileName());
+    for (QueueItem item : qApp->findChild<Player*>("player")->queue)
+        queueWidget->addItem(item.filePath.fileName());
 }
